@@ -8,7 +8,7 @@ export async function GET(req: Request, res: any) {
 
   try {
     await client.sql`CREATE TABLE todos ( name varchar(255), is_complete bit );`
-    await client.sql`INSERT INTO todos (name, is_complete) VALUES('Todo 1', 'Todo 2')`
+    await client.sql`INSERT INTO todos (name, is_complete) VALUES ('todo 1', CAST(0 AS BIT)), ('todo 2', CAST(0 AS BIT));`
   } catch (error) {
     console.log(error);
     return new Response('error');

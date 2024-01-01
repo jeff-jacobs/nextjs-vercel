@@ -1,6 +1,6 @@
 import { db } from '@vercel/postgres';
 
-interface Todo {
+export interface Todo {
   name: string;
   is_complete: boolean;
 }
@@ -8,17 +8,29 @@ interface Todo {
 export default async function Todos() {
 
   const client = await db.connect();
-  const { rows } = await client.sql`SELECT * from todos`;
+  const res = await fetch('http://localhost:3000/api/todos/', {
+    cache: 'no-store'
+  });
+  const todos: Todo[] = await res.json();
+
+  console.log(todos);
+
+  await fetch('http://localhost:3000/api/todos/add', {
+    method: 'POST',
+    body: {
+      name: 'Test',
+    },
+    cache: 'no-store'
+  });
 
   return (
 
     <div>
       <h1>Todos</h1>
       <ul>
-        {rows.map(row =>
-          <li key={row.name}>
-            {row.name} &nbsp;
-            <button>{row.is_complete ? 'Mark Incomplete' : 'Mark Complete'}</button>
+        {todos.map(todo =>
+          <li key={todo.name}>
+            {todo.name} &nbsp;
           </li>
         )}
       </ul>
