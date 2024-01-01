@@ -15,14 +15,6 @@ export default async function Todos() {
 
   console.log(todos);
 
-  await fetch('http://localhost:3000/api/todos/add', {
-    method: 'POST',
-    body: {
-      name: 'Test',
-    },
-    cache: 'no-store'
-  });
-
   return (
 
     <div>
