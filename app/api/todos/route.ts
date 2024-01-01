@@ -20,9 +20,7 @@ export async function GET(request: Request) {
   return NextResponse.json(rows);
 }
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
-
+export async function POST() {
   console.log('POST TODOS');
-
-  return res.status(200).json({ message: 'Success POST' });
+  return NextResponse.json({ message: 'Success POST' });
 }
