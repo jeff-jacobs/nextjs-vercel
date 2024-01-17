@@ -1,31 +1,29 @@
-import { db } from '@vercel/postgres';
+import AddTodo from './components/add-todo';
+import DeleteTodoButton from './components/delete-todo';
+import TodoList from './components/todo-list';
+import ToggleTodoButton from './components/toggle-todo';
 
 export interface Todo {
+  id: number;
   name: string;
   is_complete: boolean;
 }
 
 export default async function Todos() {
 
-  const client = await db.connect();
-  const res = await fetch('http://localhost:3000/api/todos/', {
+  const res = await fetch('http://localhost:3000/api/todos', {
     cache: 'no-store'
   });
   const todos: Todo[] = await res.json();
-
-  console.log(todos);
+  const incompleteTodos: Todo[] = todos.filter(todo => !todo.is_complete);
+  const completeTodos: Todo[] = todos.filter(todo => todo.is_complete);
 
   return (
-
     <div>
       <h1>Todos</h1>
-      <ul>
-        {todos.map(todo =>
-          <li key={todo.name}>
-            {todo.name} &nbsp;
-          </li>
-        )}
-      </ul>
+      <AddTodo />
+      <TodoList todos={incompleteTodos} status="incomplete" />
+      {completeTodos.length > 0 && <TodoList todos={completeTodos} status="complete" />}
     </div>
   )
 }

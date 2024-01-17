@@ -1,26 +1,29 @@
-import { QueryResult, db } from '@vercel/postgres';
-import { NextApiRequest, NextApiResponse } from 'next';
-import { Todo } from '@/app/todos/page';
+import { db } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
 
-export async function GET(request: Request) {
-
-  console.log('GET TODOS');
-
-  // const { searchParams } = new URL(request.url);
-  // const limit = searchParams.get('limit');
-  // const offset = searchParams.get('offset');
-  // console.log(limit);
-  
+export async function GET() {
   const client = await db.connect();
   const { rows } = await client.sql`SELECT * FROM todos;`;
-  // const { rows } = await client.sql`SELECT * FROM todos LIMIT ${limit} OFFSET ${offset};`;
-
-  console.log(rows);
   return NextResponse.json(rows);
 }
 
-export async function POST() {
-  console.log('POST TODOS');
-  return NextResponse.json({ message: 'Success POST' });
+export async function POST(request: Request) {
+  const { name }: { name: string } = await request.json();
+  const client = await db.connect();
+  const { rows } = await client.sql`INSERT INTO todos (name, is_complete) VALUES (${name}, false)`;
+  return NextResponse.json(rows);
+}
+
+export async function DELETE(request: Request) {
+  const { id }: { id: number } = await request.json();
+  const client = await db.connect();
+  const { rows } = await client.sql`DELETE FROM todos WHERE id = ${id}`;
+  return NextResponse.json(rows);
+}
+
+export async function PATCH(request: Request) {
+  const { id, is_complete }: { id: number, is_complete: boolean } = await request.json();
+  const client = await db.connect();
+  const { rows } = await client.sql`UPDATE todos set is_complete=${is_complete} WHERE id = ${id}`;
+  return NextResponse.json(rows);
 }
