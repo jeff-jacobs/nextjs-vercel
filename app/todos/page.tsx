@@ -1,3 +1,4 @@
+import { GET } from '../api/todos/route';
 import AddTodo from './components/add-todo';
 import TodoList from './components/todo-list';
 
@@ -9,20 +10,10 @@ export interface Todo {
 
 export default async function Todos() {
 
-  let todos: Todo[] = [];
-  let incompleteTodos: Todo[] = []
-  let completeTodos: Todo[] = [];
-
-  try {
-    const res = await fetch('http://localhost:3000/api/todos', {
-      cache: 'no-store'
-    });
-    todos = await res.json();
-    incompleteTodos= todos.filter(todo => !todo.is_complete);
-    completeTodos= todos.filter(todo => todo.is_complete);
-  } catch (e) {
-    console.log(e);
-  }
+  const res = await GET();
+  const todos: Todo[] = await res.json();
+  const incompleteTodos: Todo[] = todos.filter(todo => !todo.is_complete);
+  const completeTodos: Todo[] = todos.filter(todo => todo.is_complete);
 
   return (
     <div>

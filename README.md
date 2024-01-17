@@ -9,7 +9,3 @@
 ## View demo:
 
 https://nextjs-vercel-opal-three.vercel.app
-
-## Todo:
-
-- Refactor server component to utilize function directly instead of the API call?

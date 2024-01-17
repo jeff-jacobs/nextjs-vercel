@@ -14,7 +14,7 @@ const ToggleTodoButton: React.FC<{
   const router = useRouter();
 
   const handleClick = () => {
-    fetch('http://localhost:3000/api/todos', {
+    fetch('/api/todos', {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

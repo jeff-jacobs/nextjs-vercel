@@ -14,7 +14,7 @@ const AddTodo = () => {
 
   const handleOnKeydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      fetch('http://localhost:3000/api/todos', {
+      fetch('/api/todos', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
