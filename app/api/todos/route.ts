@@ -1,11 +1,9 @@
-import { createClient, db } from '@vercel/postgres';
+import { db } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const client = createClient();
-  await client.connect();
+  const client = await db.connect();
   const { rows } = await client.sql`SELECT * FROM todos;`;
-  client.end();
   return NextResponse.json(rows);
 }
 
