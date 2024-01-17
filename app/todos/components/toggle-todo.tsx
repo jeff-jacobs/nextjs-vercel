@@ -29,13 +29,11 @@ const ToggleTodoButton: React.FC<{
   }
 
   return (
-    <>
-      <button
-        onClick={() => handleClick()}
-      >
-        {isComplete ? 'Mark Incomplete' : 'Mark Complete'}
-      </button>
-    </>
+    <button
+      onClick={() => handleClick()}
+    >
+      {isComplete ? 'Mark Incomplete' : 'Mark Complete'}
+    </button>
   )
 }
 

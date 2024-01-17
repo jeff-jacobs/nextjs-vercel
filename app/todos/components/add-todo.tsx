@@ -30,16 +30,14 @@ const AddTodo = () => {
   }
 
   return (
-    <>
-      <input
-        id="add-todo"
-        type="text"
-        placeholder="Add New Todo"
-        onChange={handleOnChange}
-        onKeyDown={handleOnKeydown}
-        value={todoInput}
-      />
-    </>
+    <input
+      id="add-todo"
+      type="text"
+      placeholder="Add New Todo"
+      onChange={handleOnChange}
+      onKeyDown={handleOnKeydown}
+      value={todoInput}
+    />
   )
 }
 

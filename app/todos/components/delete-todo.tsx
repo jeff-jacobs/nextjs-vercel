@@ -26,13 +26,11 @@ const DeleteTodoButton: React.FC<{
   }
 
   return (
-    <>
-      <button
-        onClick={() => handleClick()}
-      >
-        Delete
-      </button>
-    </>
+    <button
+      onClick={() => handleClick()}
+    >
+      Delete
+    </button>
   )
 }
 
