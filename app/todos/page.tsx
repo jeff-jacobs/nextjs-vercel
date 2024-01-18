@@ -8,6 +8,8 @@ export interface Todo {
   is_complete: boolean;
 }
 
+export const dynamic = 'force-dynamic'; 
+
 export default async function Todos() {
 
   const res = await GET();
